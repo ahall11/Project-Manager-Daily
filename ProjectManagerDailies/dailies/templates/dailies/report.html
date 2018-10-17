@@ -1,0 +1,91 @@
+{% extends 'dailies/base.html' %}
+
+{% block content %}
+    <div class="report content">
+        <div class="d-flex w-100 justify-content-between">
+            <h2 class="mb-1">Report #{{ report.report_id }} {{ report.date }}</h2>
+        </div>
+        <p class="mb-1">Project: {{ report.project_name }} #{{ report.project_number }}</p>
+        <p class="mb-1">Weather: {{ report.weather }}</p>
+        <br> {# Space between report head and columns #}
+        <div class="row">
+            <div class="col">
+                <div class="equipment">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                        <h5><b>Equipment on Site</b></h5>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Hours</th>
+                            <th scope="col">Contractor</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for key, value in report.eq_report.items%}
+                            <tr>
+                                <td>{{ value.eq_name }}</td>
+                                <td>{{ value.contractor }}</td>
+                                <td>{{ value.hours_used }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col">
+                <div class="contractors">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                        <h5><b>Contractors</b></h5>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Ctr Code</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for key, value in report.contractors.items%}
+                            <tr>
+                                <td>{{ value.company_name }}</td>
+                                <td>{{ value.ctr_code }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="w-100"></div>
+        </div>
+        <br> {# Space between columns and employee task #}
+        <div class="employee">
+            <div class="employee">
+                <table class="table table-sm table-hover">
+                    <thead>
+                    <h5><b>Employee Tasks</b></h5>
+                    <tr>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Labor Class</th>
+                        <th scope="col">Contractor</th>
+                        <th scope="col">Task Name</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Hours</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for key, value in report.e_report.items%}
+                            <tr>
+                                <td>{{ value.first_name }}</td>
+                                <td>{{ value.last_name }}</td>
+                                <td>{{ value.labor_class }}</td>
+                                <td>{{ value.contractor }}</td>
+                                <td>{{ value.task_name }}</td>
+                                <td>{{ value.task_details }}</td>
+                                <td>{{ value.task_hours }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

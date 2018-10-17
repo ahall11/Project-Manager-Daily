@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Project Manager Daily</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'dailies:index' %}">Project Manager Daily</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dailies:index' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                {% if 'view' in request.path %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dailies:edit_report' report.report_id %}">Edit Report</a>
+                    </li>
+                {% elif 'edit' in request.path %}
+                    <li class="nav-item">
+{#                    CHANGE THIS SO YOU GET THE REPORT AS A DATA VARIABLE IN THE FORM#}
+{#                        <a class="nav-link" href="{% url 'dailies:report' report.report_id %}">View Report</a>#}
+                    </li>
+                {%  endif %}
+                <li class="nav-item">
+                    {% if request.user.is_authenticated %}
+                        <a class="nav-link" href="/logout?next=/dailies/">Logout</a>
+                    {% else %}
+                        <a class="nav-link" href="/login">Login</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    {%  block content %}
+    {%  endblock %}
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script>
+  var csrf_token = '{{ csrf_token }}'
+</script>
+</html>

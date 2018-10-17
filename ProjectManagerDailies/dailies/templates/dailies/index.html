@@ -1,0 +1,16 @@
+{% extends 'dailies/base.html' %}
+
+{% block content %}
+    <div class="page-center container">
+        {% if request.user.is_authenticated %}
+            <span> Hello, {{ request.user.username}} below is a list of your reports:</span>
+            {% for r in user_reports %}
+                <li><a>{{ r }}</a></li>
+                <ul>
+                    <li><a href="{% url 'dailies:report' r.id %}">View</a></li>
+                    <li><a href="{% url 'dailies:edit_report' r.id %}">Edit</a></li>
+                </ul>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
